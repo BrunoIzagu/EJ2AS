@@ -1,0 +1,27 @@
+name: Ejercicio2
+on:
+  push:
+    branches: ["main"]
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descarga Codigo
+        uses: actions/checkout@v4
+      - name: Validate Kubernetes Manifests
+        uses: codewdhruv/kubeval-validation@v1.1.1
+        with:
+          directory: '/'
+      - uses: engineerd/setup-kind@v0.6.0
+        with:
+          version: "v0.24.0"
+      - name: Testing
+        run: |
+          kubectl cluster-info
+          kubectl version
+          kubectl apply -f "deployment-web.yaml"
+          kubectl apply -f "deployment-mysql.yaml"
+          kubectl apply -f "clusterIp-mysql.yaml"
+          kubectl apply -f "loadBalancer-web.yaml"
+          kubectl get pods -n kube-system
+  
