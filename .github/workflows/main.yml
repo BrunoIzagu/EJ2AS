@@ -11,7 +11,7 @@ jobs:
       - name: Validate Kubernetes Manifests
         uses: codewdhruv/kubeval-validation@v1.1.1
         with:
-          directory: '/k8s/'
+          directory: '/k8s'
       - uses: engineerd/setup-kind@v0.6.0
         with:
           version: "v0.24.0"
